@@ -6,3 +6,44 @@ body {
 a {
   color: #00B7FF;
 }
+
+nav {
+  display: flex;
+  gap: 16px;
+  font-weight: bold;
+}
+
+header {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 32px;
+}
+
+.record-counts {
+  margin-top: 32px;
+}
+
+.item-list a, .darker-link {
+  color: #00a4e5;
+}
+
+ul li {
+  margin-top: 12px;
+}
+
+.secondary-text {
+  color: #5e5e5e;
+}
+
+.details-header {
+  margin-bottom: 32px;
+}
+
+.details-footer {
+  margin-top: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-weight: bold;
+}

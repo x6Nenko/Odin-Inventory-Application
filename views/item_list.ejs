@@ -1,0 +1,11 @@
+<%- include('header'); -%>
+  <h1><%= title %></h1>
+
+  <% if (item_list.length) { %>
+      <ul class="item-list">
+      <% item_list.forEach(item => { %>
+        <li><a href="<%= item.url %>"><b><%= item.name %></b></a> <span class="secondary-text">(<%= item.number_in_stock %> items left)</span>: $<%= item.price %></li>
+      <% }); %>
+      </ul>
+  <% } %>
+<%- include('footer'); -%>

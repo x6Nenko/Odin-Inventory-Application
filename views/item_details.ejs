@@ -1,0 +1,13 @@
+<%- include('header'); -%>
+  <div class="details-header">
+    <h1><%= item.name %></h1>
+    <p><%= item.description %></p>
+  </div>
+  <p>Category: <a href="<%= item.category.url %>" class="darker-link"><b><%= item.category.name %></b></a></p>
+  <p>Price: $<%= item.price %></p>
+  <p>In stock: <%= item.number_in_stock %></p>
+  <div class="details-footer">
+    <a href="<%= item.url %>/update">Update item</a>
+    <a href="<%= item.url %>/delete">Delete item</a>
+  </div>
+<%- include('footer'); -%>

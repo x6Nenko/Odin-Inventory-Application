@@ -1,11 +1,12 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-  </body>
-</html>
+<%- include('header'); -%>
+  <h1><%= title %></h1>
+  <p>This is an educational app with fake data and the possibility for anyone to update it.</p>
+
+  <article class="record-counts">
+    <h3>The inventory has the following record counts:</h3>
+    <ul>
+      <li>Categories: <%= category_count %></li>
+      <li>Items: <%= item_count %></li>
+    </ul>
+  </article>
+<%- include('footer'); -%>

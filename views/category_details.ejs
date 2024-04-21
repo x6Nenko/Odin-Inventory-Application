@@ -1,0 +1,19 @@
+<%- include('header'); -%>
+  <div class="details-header">
+    <h1><%= category.name %></h1>
+    <p><%= category.description %></p>
+  </div>
+
+  <% if (category_items.length) { %>
+    <ul class="item-list">
+    <% category_items.forEach(item => { %>
+      <li><a href="<%= item.url %>"><b><%= item.name %></b></a> <span class="secondary-text">(<%= item.number_in_stock %> items left)</span>: $<%= item.price %></li>
+    <% }); %>
+    </ul>
+  <% } %>
+
+  <div class="details-footer">
+    <a href="<%= category.url %>/update">Update category</a>
+    <a href="<%= category.url %>/delete">Delete category</a>
+  </div>
+<%- include('footer'); -%>

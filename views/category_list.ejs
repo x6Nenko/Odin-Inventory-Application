@@ -1,0 +1,11 @@
+<%- include('header'); -%>
+  <h1><%= title %></h1>
+
+  <% if (category_list.length) { %>
+      <ul class="item-list">
+      <% category_list.forEach(category => { %>
+        <li><a href="<%= category.url %>"><b><%= category.name %></b></a></li>
+      <% }); %>
+      </ul>
+  <% } %>
+<%- include('footer'); -%>
