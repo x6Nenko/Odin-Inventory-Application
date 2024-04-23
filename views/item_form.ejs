@@ -1,3 +1,50 @@
 <%- include('header'); -%>
+  <h1><%= title %></h1>
 
+  <form method="POST" action="">
+    <div>
+      <label for="name">Name:</label>
+      <input type="text" name="name" id="name" placeholder="Item name" required value="<%= item !== undefined ? item.name : "" %>">
+    </div>
+
+    <div>
+      <label for="description">Description:</label>
+      <textarea name="description" id="description" rows="3" placeholder="Item description" required></textarea>
+    </div>
+
+    <div>
+      <label for="category">Category:</label>
+      <select name="category" id="category" required>
+        <option value="">--Please select the category--</option>
+
+        <% if (category_list.length) { %>
+          <% category_list.forEach(category => { %>
+            <option value="<%= category._id %>"><%= category.name %></option>
+          <% }) %>
+        <% } %>
+      </select>
+    </div>
+
+    <div>
+      <label for="price">Price:</label>
+      <input type="number" name="price" id="price" placeholder="In dollars" value="<%= item !== undefined ? item.price : "" %>">
+    </div>
+
+    <div>
+      <label for="inStock">In stock:</label>
+      <input type="number" name="inStock" id="inStock" placeholder="In single units" value="<%= item !== undefined ? item.number_in_stock : "" %>">
+    </div>
+
+    <button type="submit">Submit</button>
+  </form>
+
+  <% if (errors) { %>
+    <ul>
+      <% for (const error in errors) { %>
+        <li><%= error.msg %></li>
+      <% } %>
+    </ul>
+  <% } %>
+
+  <p><%= category_list %></p>
 <%- include('footer'); -%>

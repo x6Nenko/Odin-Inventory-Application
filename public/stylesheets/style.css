@@ -47,3 +47,36 @@ ul li {
   gap: 8px;
   font-weight: bold;
 }
+
+input, select, textarea {
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  padding: 10px;
+  border: 1px solid #5e5e5e;
+  border-radius: 6px;
+}
+
+button {
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-color: #2563eb;
+  color: #fff;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 6px;
+  width: fit-content;
+}
+
+button:hover {
+  background-color: #3b82f6;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+}
+
+form div {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
