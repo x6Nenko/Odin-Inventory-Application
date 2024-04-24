@@ -10,6 +10,9 @@ const usersRouter = require('./routes/users');
 const compression = require("compression");
 const helmet = require("helmet");
 
+require("@babel/core").transform("code", {
+  presets: ["@babel/preset-env"],
+});
 require('dotenv').config()
 
 const app = express();
