@@ -144,10 +144,75 @@ exports.item_delete_post = asyncHandler(async (req, res, next) => {
 
 // Display item update form on GET.
 exports.item_update_get = asyncHandler(async (req, res, next) => {
-  res.send("NOT IMPLEMENTED: item update GET");
+  const [itemData, categories] = await Promise.all([
+    Item.findById(req.params.id).populate("category").exec(),
+    Category.find().sort({ name: 1 }).exec(),
+  ]);
+
+  res.render("item_form", {
+    title: "Update item",
+    category_list: categories,
+    item: itemData,
+    errors: undefined,
+  })
 });
 
 // Handle item update on POST.
-exports.item_update_post = asyncHandler(async (req, res, next) => {
-  res.send("NOT IMPLEMENTED: item update POST");
-});
+exports.item_update_post = [
+  // Validate and sanitize fields.
+  body("name", "Name must not be empty.")
+    .trim()
+    .isLength({ min: 3, max: 40 })
+    .escape(),
+  body("description", "Description must not be empty.")
+    .trim()
+    .isLength({ min: 3, max: 100 })
+    .escape(),
+  body("category", "Category must be specified.")
+    .trim()
+    .isLength({ min: 1 })
+    .escape(),
+  body("price", "Price must be between $1 - $1 000 000.")
+    .optional({ values: "falsy" })
+    .trim()
+    .isLength({ min: 1 })
+    .isInt({ allow_leading_zeroes: false, min: 1, max: 1000000 })
+    .escape(),
+  body("number_in_stock", "Max capacity is 1 000 000")
+    .optional({ values: "falsy" })
+    .trim()
+    .isLength({ min: 1 })
+    .isInt({ allow_leading_zeroes: false, min: 1, max: 1000000 })
+    .escape(),
+
+  // Process request after validation and sanitization.
+  asyncHandler(async (req, res, next) => {
+    // Extract the validation errors from a request.
+    const errors = validationResult(req);
+
+    // Create an Item object with escaped and trimmed data.
+    const item = new Item({
+      name: req.body.name,
+      description: req.body.description,
+      category: req.body.category,
+      price: req.body.price,
+      number_in_stock: req.body.number_in_stock,
+      _id: req.params.id, // This is required, or a new ID will be assigned!
+    });
+
+    if (!errors.isEmpty()) {
+      // There are errors. Render form again with sanitized values/error messages.
+      const categories = await Category.find().sort({ name: 1 }).exec();
+      res.render("item_form", {
+        title: "Update item",
+        category_list: categories,
+        item: item,
+        errors: errors.array(),
+      })
+    } else {
+      // Data from form is valid. Update item.
+      await Item.findByIdAndUpdate(req.params.id, item);
+      res.redirect(item.url);
+    }
+  }),
+];

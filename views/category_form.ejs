@@ -9,7 +9,7 @@
 
     <div>
       <label for="description">Description:</label>
-      <textarea name="description" id="description" rows="3" placeholder="Category description" required></textarea>
+      <textarea name="description" id="description" rows="3" placeholder="Category description" required><%= category !== undefined ? category.description : "" %></textarea>
     </div>
 
     <button type="submit">Submit</button>

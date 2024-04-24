@@ -9,7 +9,7 @@
 
     <div>
       <label for="description">Description:</label>
-      <textarea name="description" id="description" rows="3" placeholder="Item description" required></textarea>
+      <textarea name="description" id="description" rows="3" placeholder="Item description" required><%= item !== undefined ? item.description : "" %></textarea>
     </div>
 
     <div>
@@ -19,20 +19,24 @@
 
         <% if (category_list.length) { %>
           <% category_list.forEach(category => { %>
-            <option value="<%= category._id %>"><%= category.name %></option>
+              <% if (item && item.category._id.toString() === category._id.toString()) { %>
+                <option value="<%= category._id %>" selected><%= category.name %></option>
+              <% } else { %>
+                <option value="<%= category._id %>"><%= category.name %></option>
+              <% } %>
           <% }) %>
         <% } %>
       </select>
     </div>
 
     <div>
-      <label for="price">Price:</label>
+      <label for="price">Price (USD):</label>
       <input type="number" name="price" id="price" placeholder="In dollars" value="<%= item !== undefined ? item.price : "" %>">
     </div>
 
     <div>
-      <label for="inStock">In stock:</label>
-      <input type="number" name="inStock" id="inStock" placeholder="In single units" value="<%= item !== undefined ? item.number_in_stock : "" %>">
+      <label for="number_in_stock">In stock (units):</label>
+      <input type="number" name="number_in_stock" id="number_in_stock" placeholder="In single units" value="<%= item !== undefined ? item.number_in_stock : "" %>">
     </div>
 
     <button type="submit">Submit</button>
