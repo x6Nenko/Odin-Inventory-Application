@@ -45,7 +45,7 @@ exports.item_create_get = asyncHandler(async (req, res, next) => {
   const categories = await Category.find().sort({ name: 1 }).exec();
 
   res.render("item_form", {
-    title: "Create Item",
+    title: "Create New Item",
     category_list: categories,
     item: undefined,
     errors: undefined,
@@ -85,7 +85,7 @@ exports.item_create_post = [
     // Extract the validation errors from a request.
     const errors = validationResult(req);
 
-    // Create a Book object with escaped and trimmed data.
+    // Create an Item object with escaped and trimmed data.
     const item = new Item({
       name: req.body.name,
       description: req.body.description,

@@ -40,11 +40,10 @@
 
   <% if (errors) { %>
     <ul>
-      <% for (const error in errors) { %>
+      <% errors.forEach(error => { %>
         <li><%= error.msg %></li>
-      <% } %>
+      <% }); %>
     </ul>
   <% } %>
 
-  <p><%= category_list %></p>
 <%- include('footer'); -%>
