@@ -113,12 +113,33 @@ exports.item_create_post = [
 
 // Display item delete form on GET.
 exports.item_delete_get = asyncHandler(async (req, res, next) => {
-  res.send("NOT IMPLEMENTED: item delete GET");
+  const itemData = await Item.findById(req.params.id).populate("category").exec();
+  if (itemData === null) {
+    // No results.
+    const err = new Error("Item not found");
+    err.status = 404;
+    return next(err);
+  }
+  res.render("item_delete", {
+    title: "Delete the item:",
+    item: itemData,
+  });
 });
 
 // Handle item delete on POST.
 exports.item_delete_post = asyncHandler(async (req, res, next) => {
-  res.send("NOT IMPLEMENTED: item delete POST");
+  // Get details of genre and all its books (in parallel)
+  const itemData = await Item.findById(req.params.id).populate("category").exec();
+
+  if (itemData === null) {
+    // No results.
+    const err = new Error("Item not found");
+    err.status = 404;
+    return next(err);
+  }
+
+  await Item.findByIdAndDelete(req.body.itemid);
+  res.redirect("/items");
 });
 
 // Display item update form on GET.

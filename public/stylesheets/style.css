@@ -80,3 +80,7 @@ form div {
   flex-direction: column;
   gap: 6px;
 }
+
+.delete-btn {
+  margin-top: 32px;
+}

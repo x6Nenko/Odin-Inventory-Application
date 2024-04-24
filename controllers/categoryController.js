@@ -82,12 +82,42 @@ exports.category_create_post = [
 
 // Display category delete form on GET.
 exports.category_delete_get = asyncHandler(async (req, res, next) => {
-  res.send("NOT IMPLEMENTED: category delete GET");
+  const [categoryData, itemsInCategory] = await Promise.all([
+    Category.findById(req.params.id).exec(),
+    Item.find({ category: req.params.id }, "name number_in_stock price").exec(),
+  ])
+
+  res.render("category_delete", {
+    title: "Delete the category:",
+    category: categoryData,
+    category_items: itemsInCategory,
+  });
 });
 
 // Handle category delete on POST.
 exports.category_delete_post = asyncHandler(async (req, res, next) => {
-  res.send("NOT IMPLEMENTED: category delete POST");
+  const [categoryData, itemsInCategory] = await Promise.all([
+    Category.findById(req.params.id).exec(),
+    Item.find({ category: req.params.id }, "name number_in_stock price").exec(),
+  ])
+
+  if (categoryData === null) {
+    // No results.
+    const err = new Error("Item not found");
+    err.status = 404;
+    return next(err);
+  }
+
+  if (itemsInCategory.length > 0) {
+    res.render("category_delete", {
+      title: "Delete the category:",
+      category: categoryData,
+      category_items: itemsInCategory,
+    });
+  } else {
+    await Category.findByIdAndDelete(req.body.categoryid);
+    res.redirect("/categories");
+  }
 });
 
 // Display category update form on GET.

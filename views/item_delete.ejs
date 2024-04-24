@@ -1,3 +1,15 @@
 <%- include('header'); -%>
+  <div class="details-header">
+    <h1><%= title %> <%= item.name %></h1>
+    <p><%= item.description %></p>
+  </div>
+
+  <p>Do you really want to delete the Item?</p>
+
+  <form method="POST" action="" class="delete-btn">
+    <input type="hidden" name="itemid" id="itemid" value="<%= item._id %>">
+
+    <button type="submit">Delete</button>
+  </form>
 
 <%- include('footer'); -%>

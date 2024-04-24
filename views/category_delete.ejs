@@ -1,0 +1,25 @@
+<%- include('header'); -%>
+  <div class="details-header">
+    <h1><%= title %> <%= category.name %></h1>
+    <p><%= category.description %></p>
+  </div>
+
+  <% if (category_items.length > 0) { %>
+    <p><strong>Delete the following items before attempting to delete this category.</strong></p>
+
+    <ul class="item-list">
+    <% category_items.forEach(item => { %>
+      <li><a href="<%= item.url %>"><b><%= item.name %></b></a> <span class="secondary-text">(<%= item.number_in_stock %> items left)</span>: $<%= item.price %></li>
+    <% }); %>
+    </ul>
+  <% } else { %>
+    <p>Do you really want to delete the Category?</p>
+
+    <form method="POST" action="" class="delete-btn">
+      <input type="hidden" name="categoryid" id="categoryid" value="<%= category._id %>">
+  
+      <button type="submit">Delete</button>
+    </form>
+  <% }%>
+
+<%- include('footer'); -%>
